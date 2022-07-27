@@ -1,7 +1,22 @@
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { db } from "../database/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const Table = () => {
+  const [users, setUsers] = useState([]);
+  const userCollectionRef = collection(db, "users");
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(userCollectionRef);
+      // console.log(data);
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getUsers();
+  }, []);
+
   return (
     <div className=" text-center rounded-2">
       <h1
@@ -21,6 +36,23 @@ const Table = () => {
             <th scope="col">Edit</th>
           </tr>
         </thead>
+
+        {users.map((user) => {
+          return (
+            <tr>
+              <td>{user.name}</td>
+              <td>{user.phone}</td>
+              <td>{user.gender}</td>
+              <td>
+                <MdOutlineDeleteForever color="red" size={35} />
+              </td>
+              <td>
+                <FaEdit color="lightblue" size={35} />
+              </td>
+            </tr>
+          );
+        })}
+
         <tbody>
           <tr>
             <td>Mark</td>
