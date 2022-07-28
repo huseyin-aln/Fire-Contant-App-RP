@@ -1,13 +1,22 @@
 import { BsFillPersonFill } from "react-icons/bs";
 import { AiFillPhone } from "react-icons/ai";
-import { useState } from "react";
+import { useContext } from "react";
+import { ContactContext } from "../context/ContactContext";
 
 const Form = () => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [gender, setGender] = useState("");
+  const {
+    name,
+    setName,
+    phone,
+    setPhone,
+    gender,
+    setGender,
+    handleSubmit,
+    addUser,
+  } = useContext(ContactContext);
 
   console.log(name, phone, gender);
+
   return (
     <div className="d-flex flex-column justify-content-center align-items-center  ">
       <h1
@@ -27,6 +36,7 @@ const Form = () => {
       <form
         className="m-auto bg-white p-3 rounded-2"
         style={{ width: "16rem", height: "15rem" }}
+        onSubmit={handleSubmit}
       >
         <div className="mb-3 wrapper">
           <BsFillPersonFill className="icon" />
@@ -69,6 +79,7 @@ const Form = () => {
           type="submit"
           className="btn btn-primary"
           style={{ width: "14rem" }}
+          onClick={addUser}
         >
           Add
         </button>

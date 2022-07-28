@@ -1,21 +1,10 @@
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import { db } from "../database/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { useContext } from "react";
+import { ContactContext } from "../context/ContactContext";
 
 const Table = () => {
-  const [users, setUsers] = useState([]);
-  const userCollectionRef = collection(db, "users");
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(userCollectionRef);
-      // console.log(data);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
-  }, []);
+  const { users } = useContext(ContactContext);
 
   return (
     <div className=" text-center rounded-2">
@@ -39,21 +28,23 @@ const Table = () => {
 
         {users.map((user) => {
           return (
-            <tr>
-              <td>{user.name}</td>
-              <td>{user.phone}</td>
-              <td>{user.gender}</td>
-              <td>
-                <MdOutlineDeleteForever color="red" size={35} />
-              </td>
-              <td>
-                <FaEdit color="lightblue" size={35} />
-              </td>
-            </tr>
+            <tbody>
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.phone}</td>
+                <td>{user.gender}</td>
+                <td>
+                  <MdOutlineDeleteForever color="red" size={20} />
+                </td>
+                <td>
+                  <FaEdit color="lightblue" size={20} />
+                </td>
+              </tr>
+            </tbody>
           );
         })}
 
-        <tbody>
+        {/* <tbody>
           <tr>
             <td>Mark</td>
             <td>9012345678920</td>
@@ -66,7 +57,7 @@ const Table = () => {
             </td>
           </tr>
           <tr>
-            <td>Admin</td>
+            <td>Joseph</td>
             <td>9012388877755</td>
             <td>Male</td>
             <td>
@@ -76,7 +67,7 @@ const Table = () => {
               <FaEdit color="lightblue" size={20} />
             </td>
           </tr>
-        </tbody>
+        </tbody> */}
       </table>
     </div>
   );
