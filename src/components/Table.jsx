@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { ContactContext } from "../context/ContactContext";
 
 const Table = () => {
-  const { users } = useContext(ContactContext);
+  const { users, updateUser, deleteUser } = useContext(ContactContext);
 
   return (
     <div className=" text-center rounded-2">
@@ -34,10 +34,20 @@ const Table = () => {
                 <td>{user.phone}</td>
                 <td>{user.gender}</td>
                 <td>
-                  <MdOutlineDeleteForever color="red" size={20} />
+                  <MdOutlineDeleteForever
+                    color="red"
+                    size={20}
+                    onClick={() => deleteUser(user.id)}
+                  />
                 </td>
                 <td>
-                  <FaEdit color="lightblue" size={20} />
+                  <FaEdit
+                    color="lightblue"
+                    size={20}
+                    onClick={() => {
+                      updateUser(user);
+                    }}
+                  />
                 </td>
               </tr>
             </tbody>

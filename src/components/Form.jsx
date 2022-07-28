@@ -13,6 +13,8 @@ const Form = () => {
     setGender,
     handleSubmit,
     addUser,
+    editActive,
+    editUser,
   } = useContext(ContactContext);
 
   console.log(name, phone, gender);
@@ -75,14 +77,25 @@ const Form = () => {
           </select>
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          style={{ width: "14rem" }}
-          onClick={addUser}
-        >
-          Add
-        </button>
+        {editActive ? (
+          <button
+            type="submit"
+            className="btn btn-danger"
+            style={{ width: "14rem" }}
+            onClick={editUser}
+          >
+            Edit
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: "14rem" }}
+            onClick={addUser}
+          >
+            Add
+          </button>
+        )}
       </form>
     </div>
   );

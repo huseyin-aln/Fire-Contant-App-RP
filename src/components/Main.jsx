@@ -3,22 +3,32 @@ import { ContactContext } from "../context/ContactContext";
 import Form from "./Form";
 import Table from "./Table";
 import { db } from "../database/firebaseConfig";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 const Main = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [users, setUsers] = useState([]);
+  const [editActive, setEditActive] = useState(false);
+  const [editId, setEditId] = useState("");
 
   const userCollectionRef = collection(db, "users");
 
+  const getUsers = async () => {
+    const data = await getDocs(userCollectionRef);
+    // console.log(data);
+    setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
   useEffect(() => {
-    const getUsers = async () => {
-      const data = await getDocs(userCollectionRef);
-      // console.log(data);
-      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
     getUsers();
   }, []);
 
@@ -30,6 +40,33 @@ const Main = () => {
     });
   };
 
+  const updateUser = async (user) => {
+    setEditActive(true);
+    setName(user.name);
+    setEditId(user.id);
+    setPhone(user.phone);
+    setGender(user.gender);
+  };
+
+  const editUser = async (e) => {
+    e.preventDefault();
+    const userDoc = doc(db, "users", editId);
+    const newUser = { name: name, phone: phone, gender: gender };
+    await updateDoc(userDoc, newUser);
+    getUsers();
+    setName("");
+    setPhone("");
+    setGender("");
+    setEditId("");
+    setEditActive(false);
+  };
+
+  const deleteUser = async (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+    const userDoc = doc(db, "users", id);
+    await deleteDoc(userDoc);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newObj = {
@@ -39,6 +76,7 @@ const Main = () => {
       id: new Date().getTime(),
     };
     console.log(newObj.id);
+
     setUsers([...users, newObj]);
     setName("");
     setPhone("");
@@ -59,6 +97,11 @@ const Main = () => {
           setUsers,
           handleSubmit,
           addUser,
+          updateUser,
+          deleteUser,
+          editUser,
+          editActive,
+          setEditActive,
         }}
       >
         <Form />
