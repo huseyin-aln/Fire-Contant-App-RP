@@ -11,6 +11,9 @@ import {
   deleteDoc,
   updateDoc,
 } from "firebase/firestore";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { toastSuccessNotify } from "../utils/customTostify";
 
 const Main = () => {
   const [name, setName] = useState("");
@@ -59,6 +62,7 @@ const Main = () => {
     setGender("");
     setEditId("");
     setEditActive(false);
+    toastSuccessNotify("Changed successfully");
   };
 
   const deleteUser = async (id) => {
@@ -81,6 +85,7 @@ const Main = () => {
     setName("");
     setPhone("");
     setGender("");
+    toastSuccessNotify("You added successfully");
   };
 
   return (
@@ -106,6 +111,7 @@ const Main = () => {
       >
         <Form />
         <Table />
+        <ToastContainer />
       </ContactContext.Provider>
     </div>
   );

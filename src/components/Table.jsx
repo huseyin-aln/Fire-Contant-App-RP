@@ -26,58 +26,43 @@ const Table = () => {
           </tr>
         </thead>
 
-        {users.map((user) => {
-          return (
-            <tbody>
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.phone}</td>
-                <td>{user.gender}</td>
-                <td>
-                  <MdOutlineDeleteForever
-                    color="red"
-                    size={20}
-                    onClick={() => deleteUser(user.id)}
-                  />
-                </td>
-                <td>
-                  <FaEdit
-                    color="lightblue"
-                    size={20}
-                    onClick={() => {
-                      updateUser(user);
-                    }}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          );
-        })}
-
-        {/* <tbody>
+        {users.length > 0 ? (
+          users.map((user) => {
+            return (
+              <tbody>
+                <tr key={user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.phone}</td>
+                  <td>{user.gender}</td>
+                  <td>
+                    <MdOutlineDeleteForever
+                      color="red"
+                      size={20}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => deleteUser(user.id)}
+                    />
+                  </td>
+                  <td>
+                    <FaEdit
+                      color="lightblue"
+                      size={20}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        updateUser(user);
+                      }}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })
+        ) : (
           <tr>
-            <td>Mark</td>
-            <td>9012345678920</td>
-            <td>Male</td>
-            <td>
-              <MdOutlineDeleteForever color="red" size={20} />
-            </td>
-            <td>
-              <FaEdit color="lightblue" size={20} />
+            <td colSpan={6} className="fs-5">
+              Please add a new contact
             </td>
           </tr>
-          <tr>
-            <td>Joseph</td>
-            <td>9012388877755</td>
-            <td>Male</td>
-            <td>
-              <MdOutlineDeleteForever color="red" size={20} />
-            </td>
-            <td>
-              <FaEdit color="lightblue" size={20} />
-            </td>
-          </tr>
-        </tbody> */}
+        )}
       </table>
     </div>
   );
