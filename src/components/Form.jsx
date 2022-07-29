@@ -17,7 +17,7 @@ const Form = () => {
     editUser,
   } = useContext(ContactContext);
 
-  console.log(name, phone, gender);
+  // console.log(name, phone, gender);
 
   return (
     <div className="d-flex flex-column justify-content-center align-items-center  ">
@@ -68,6 +68,7 @@ const Form = () => {
           <select
             className="form-select"
             aria-label="Default select example"
+            value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
             <option defaultValue>Gender</option>
