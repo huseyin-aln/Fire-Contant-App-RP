@@ -79,7 +79,7 @@ const Main = () => {
       gender: gender,
       id: new Date().getTime(),
     };
-    console.log(newObj.id);
+    // console.log(newObj.id);
 
     setUsers([...users, newObj]);
     setName("");

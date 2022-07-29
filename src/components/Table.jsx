@@ -31,7 +31,7 @@ const Table = () => {
             return (
               <tbody>
                 <tr key={user.id}>
-                  <td>{user.name}</td>
+                  <td>{user.name.toUpperCase()}</td>
                   <td>{user.phone}</td>
                   <td>{user.gender}</td>
                   <td>
@@ -57,11 +57,13 @@ const Table = () => {
             );
           })
         ) : (
-          <tr>
-            <td colSpan={6} className="fs-5">
-              Please add a new contact
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td colSpan={6} className="fs-5">
+                Please add a new contact
+              </td>
+            </tr>
+          </tbody>
         )}
       </table>
     </div>
