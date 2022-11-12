@@ -1,8 +1,3 @@
-# Fire-Contact-App-RP
-
-https://fire-contact-rp.netlify.app/
-
-
 <h1 align="center">Fire-Contact-App</h1>
 
 <div align="center">
