@@ -1,4 +1,4 @@
-<h1 align="center">Fire-Contact-App</h1>
+<h1 align="center">Fire Contact App</h1>
 
 <div align="center">
   <h3>
